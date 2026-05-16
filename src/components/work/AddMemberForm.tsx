@@ -1,5 +1,6 @@
 'use client';
 
+import axios from 'axios';
 import { useState } from 'react';
 
 type Role = 'admin' | 'editor' | 'viewer';
@@ -32,12 +33,17 @@ export default function AddMemberForm({
             await onSubmit({ email, role });
             setEmail('');
             setRole('editor');
-        } catch (err: any) {
-            setError(
-                err.response?.data?.message ||
-                err.response?.data?.errors?.email?.[0] ||
-                'Error al agregar el miembro.'
-            );
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                setError(
+                    err.response?.data?.message ||
+                    err.response?.data?.errors?.email?.[0] ||
+                    'Error al agregar el miembro.'
+                );
+            } else {
+                setError('Error inesperado al agregar la miembro.');
+            }
+
         }
     };
 
@@ -66,8 +72,8 @@ export default function AddMemberForm({
                         <label
                             key={r.value}
                             className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${role === r.value
-                                    ? 'border-blue-500 bg-blue-50'
-                                    : 'border-gray-200 hover:border-gray-300'
+                                ? 'border-blue-500 bg-blue-50'
+                                : 'border-gray-200 hover:border-gray-300'
                                 }`}
                         >
                             <input

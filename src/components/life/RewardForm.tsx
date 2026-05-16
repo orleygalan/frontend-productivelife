@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Reward } from '@/types';
 import { Lightbulb } from 'lucide-react';
+import axios from 'axios';
 
 interface RewardFormProps {
     initial?: Reward | null;
@@ -31,11 +32,14 @@ export default function RewardForm({
         setError('');
         try {
             await onSubmit(form);
-        } catch (err: any) {
-            setError(err.response?.data?.message || 'Error al guardar la recompensa.');
-        }
-    };
-
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data?.message || 'Error al guardar la recompensa.');
+            } else {
+                setError('Error inesperado al guardar la recompesa.');
+            }
+        };
+    }
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -66,7 +70,7 @@ export default function RewardForm({
                 />
                 <p className="text-xs text-gray-400 mt-1 flex gap-1">
                     <Lightbulb size={15} />
-                     Las recompensas deben ser significativas. Ponle un costo alto para que valga la pena.
+                    Las recompensas deben ser significativas. Ponle un costo alto para que valga la pena.
                 </p>
             </div>
 

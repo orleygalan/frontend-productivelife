@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Goal, GoalTerm } from '@/types';
 import { Star, Target, Trash2 } from 'lucide-react';
+import axios from 'axios';
 
 interface TaskInput {
     title: string;
@@ -113,10 +114,15 @@ export default function GoalForm({ onSubmit, onCancel, loading }: GoalFormProps)
                 end_date: form.end_date,
                 tasks,
             });
-        } catch (err: any) {
-            setError(err.response?.data?.message || 'Error al crear la meta.');
-        }
-    };
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data?.message || 'Error al crear la meta.');
+            } else {
+                setError('Error inesperado al crear la tarea.');
+            }
+
+        };
+    }
 
     return (
         <form onSubmit={handleSubmit} className="space-y-5">
