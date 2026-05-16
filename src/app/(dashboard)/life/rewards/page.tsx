@@ -83,9 +83,9 @@ export default function RewardsPage() {
             <LifeStats />
 
             {/* Header */}
-            <div className="flex items-center justify-between mb-6">
-                <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Recompensas</h1>
+            <div className="flex sm:items-center justify-between mb-6">
+                <div className='mt-15 sm:mt-0'>
+                    <h1 className="text-xl sm:text-2xl font-bold text-[#CBD5E1] ">Recompensas</h1>
                     {isSunday ? (
                         <p className="text-xs text-green-500 mt-0.5 font-medium flex items-center">
                             <PartyPopper /> ¡Hoy es domingo, puedes canjear!
@@ -98,28 +98,29 @@ export default function RewardsPage() {
                 </div>
                 <button
                     onClick={() => setIsCreateOpen(true)}
-                    className="bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors"
+                    className="bg-[#463671] text-white h-full text-xs sm:text-sm font-medium px-2 py-1.5 rounded-lg transition-colors whitespace-nowrap "
                 >
-                    + Nueva recompensa
+                    + Nueva Recompesa
                 </button>
             </div>
 
             {/* Balance actual */}
-            <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-100 p-5 mb-6">
+            <div className="bg-[#080F1F] from-purple-50 to-blue-50 rounded-xl p-5 mb-6">
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm text-gray-500">Tu balance actual</p>
-                        <p className="text-3xl font-bold text-purple-700 mt-1">
+                        <p className="text-xs sm:text-sm text-[#CBD5E1] ">Tu balance actual</p>
+                        <p className="text-md sm:text-3xl font-bold text-[#463671] mt-1">
                             {currentBalance.toLocaleString()} pts
                         </p>
                     </div>
                     <div>
-                        <Gem className="w-10 h-10" />
+                        <Gem className="w-6 h-6 text-[#463671] " />
                     </div>
                 </div>
                 {!isSunday && (
-                    <p className="text-xs text-gray-400 mt-3 flex items-center">
-                        <Lightbulb className="w-6 h-6" /> Acumula puntos completando tus tareas diarias y canjea cada domingo.
+                    <p className="text-xs sm:text-sm text-gray-400 mt-1 flex items-center">
+                        <Lightbulb size={16} />
+                        Acumula puntos completando tus tareas diarias y canjea cada domingo.
                     </p>
                 )}
             </div>
@@ -151,22 +152,22 @@ export default function RewardsPage() {
                             return (
                                 <div
                                     key={reward.id}
-                                    className={`bg-white rounded-xl border p-5 transition-all ${canAfford ? 'border-purple-100' : 'border-gray-100'
+                                    className={`bg-[#080F1F] rounded-xl border p-5 transition-all ${canAfford ? 'border-[#463671] ' : 'border-[#0a1543] '
                                         }`}
                                 >
                                     <div className="flex items-start justify-between gap-3">
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2">
-                                                <p className="text-sm font-semibold text-gray-800">
+                                                <p className="text-sm font-semibold text-[#CBD5E1] ">
                                                     {reward.name}
                                                 </p>
                                                 {canAfford && (
-                                                    <span className="text-xs bg-green-100 text-green-600 px-2 py-0.5 rounded-full font-medium">
+                                                    <span className="text-xs bg-green-100 text-green-600 px-2 py-0.5 rounded-full font-medium flex items-center gap-2">
                                                         <Check size={16} /> Puedes canjear
                                                     </span>
                                                 )}
                                             </div>
-                                            <p className="text-sm font-bold text-purple-600 mt-1">
+                                            <p className="text-sm font-bold text-[#463671] mt-1 flex items-center gap-2">
                                                 <Target className="w-5 h-5" /> {reward.points_cost.toLocaleString()} pts
                                             </p>
 

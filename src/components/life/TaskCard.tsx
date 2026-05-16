@@ -17,7 +17,7 @@ export default function TaskCard({
     onDelete: () => void;
 }) {
     return (
-        <div className={`bg-white rounded-xl border p-4 transition-all ${task.completed ? 'border-green-100 bg-green-50' : 'border-gray-100'
+        <div className={`bg-[#080F1F] rounded-xl p-4 transition-all ${task.completed ? 'bg-[#080F1F]/50' : 'border-[#463671] '
             }`}>
             <div className="flex items-center gap-3">
                 {/* Checkbox */}
@@ -34,11 +34,11 @@ export default function TaskCard({
 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
-                    <p className={`text-sm font-medium ${task.completed ? 'line-through text-gray-400' : 'text-gray-800'
+                    <p className={`text-sm font-medium ${task.completed ? 'line-through text-[#CBD5E1]/50' : 'text-[#CBD5E1]'
                         }`}>
                         {task.title}
                     </p>
-                    <p className="text-xs text-yellow-500 mt-0.5"> <Star /> {task.xp_per_day} XP</p>
+                    <p className="text-xs text-[#19327f] mt-0.5"> <Star /> {task.xp_per_day} XP</p>
                 </div>
 
                 {/* Acciones - solo si es editable */}

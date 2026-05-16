@@ -19,9 +19,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     if (!token || !user) return null;
 
     return (
-        <div className="flex min-h-screen bg-gray-50">
+        <div className="flex min-h-screen bg-[#050A18] ">
             <Sidebar />
-            <main className="flex-1 ml-64 p-8">
+            <main className="flex-1 md:ml-64 p-4 md:p-8">
                 {children}
             </main>
         </div>

@@ -37,8 +37,8 @@ export default function HistoryPage() {
             <LifeStats />
 
             <div className="mb-6">
-                <h1 className="text-2xl font-bold text-gray-900">Historial de puntos</h1>
-                <p className="text-gray-500 text-sm mt-1">
+                <h1 className="text-2xl font-bold text-[#CBD5E1] ">Historial de puntos</h1>
+                <p className="text-[#CBD5E1]/70 text-sm mt-1">
                     Registro detallado de todos tus puntos ganados y gastados
                 </p>
             </div>
@@ -61,16 +61,16 @@ export default function HistoryPage() {
                         return (
                             <div
                                 key={log.id}
-                                className="bg-white rounded-xl border border-gray-100 px-4 py-3 flex items-center gap-4"
+                                className="bg-[#080F1F] rounded-xl px-2 py-3 flex items-center gap-4"
                             >
                                 {/* Icono */}
-                                <div className={`w-9 h-9 rounded-full ${config.bg} flex items-center justify-center shrink-0`}>
+                                {/* <div className={`w-9 h-9 rounded-full ${config.bg} flex items-center justify-center shrink-0`}>
                                     <span className="text-base">{config.icon}</span>
-                                </div>
+                                </div> */}
 
                                 {/* Info */}
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-medium text-gray-800 truncate">
+                                    <p className="text-xs font-medium text-[#CBD5E1]/50 truncate">
                                         {log.description}
                                     </p>
                                     <div className="flex items-center gap-2 mt-0.5">
@@ -83,6 +83,14 @@ export default function HistoryPage() {
                                                 <span className="text-xs text-gray-400 truncate">
                                                     {log.goal.title}
                                                 </span>
+                                                {/* Puntos */}
+                                                <div className="text-right shrink-0 flex gap-1">
+                                                    <p className={`text-xs font-bold ${isGain ? 'text-green-600' : 'text-red-500'
+                                                        }`}>
+                                                        {isGain ? '+' : ''}{log.amount.toLocaleString()}
+                                                    </p>
+                                                    <p className="text-xs text-gray-400">XP</p>
+                                                </div>
                                             </>
                                         )}
                                     </div>
@@ -95,15 +103,6 @@ export default function HistoryPage() {
                                             minute: '2-digit',
                                         })}
                                     </p>
-                                </div>
-
-                                {/* Puntos */}
-                                <div className="text-right shrink-0">
-                                    <p className={`text-base font-bold ${isGain ? 'text-green-600' : 'text-red-500'
-                                        }`}>
-                                        {isGain ? '+' : ''}{log.amount.toLocaleString()}
-                                    </p>
-                                    <p className="text-xs text-gray-400">XP</p>
                                 </div>
                             </div>
                         );

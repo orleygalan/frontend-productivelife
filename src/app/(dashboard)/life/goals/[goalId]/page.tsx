@@ -8,7 +8,7 @@ import { GoalTask } from '@/types';
 import ConfirmDialog from '@/components/ui/ConfirmDialog';
 import Modal from '@/components/ui/Modal';
 import axios from 'axios';
-import { ArrowRight, Calendar, ChevronRight, Flame, PartyPopper } from 'lucide-react';
+import { ArrowRight, Calendar, CalendarX, ChevronRight, Flame, PartyPopper, Sparkles } from 'lucide-react';
 import TaskCard from '@/components/life/TaskCard';
 
 export default function GoalDetailPage({
@@ -99,9 +99,9 @@ export default function GoalDetailPage({
     const allCompleted = tasks.length > 0 && completedCount === tasks.length;
 
     const termColors = {
-        short: 'text-green-600',
-        medium: 'text-blue-600',
-        long: 'text-purple-600',
+        short: 'text-[#CBD5E1] ',
+        medium: 'text-[#3B6EA8] ',
+        long: 'text-[#EBBAF2] ',
     };
 
     const termLabels = {
@@ -128,15 +128,15 @@ export default function GoalDetailPage({
             </div>
 
             {/* Header de la meta */}
-            <div className="bg-white rounded-xl border border-gray-100 p-6 mb-6">
+            <div className="bg-[#080F1F] rounded-xl p-3 sm:p-6 mb-6">
                 <div className="flex items-start justify-between mb-3">
                     <div>
-                        <h1 className="text-xl font-bold text-gray-900">{goal.title}</h1>
+                        <h1 className="text-xl font-bold text-[#CBD5E1] ">{goal.title}</h1>
                         {goal.description && (
                             <p className="text-sm text-gray-400 mt-1">{goal.description}</p>
                         )}
                     </div>
-                    <span className={`text-sm font-semibold ${termColors[goal.term]}`}>
+                    <span className={`text-sm font-semibold px-2 py-1 rounded-3xl bg-[#463671] ${termColors[goal.term]}`}>
                         {termLabels[goal.term]}
                     </span>
                 </div>
@@ -151,19 +151,26 @@ export default function GoalDetailPage({
 
                 {/* Stats de la meta */}
                 <div className="grid grid-cols-3 gap-3">
-                    <div className="bg-orange-50 rounded-lg p-3 text-center">
+                    <div className="bg-[#050A18] rounded-lg p-2 text-center">
                         <p className="text-xl font-bold text-orange-500 flex flex-col items-center">
-                            <Flame />
-                            {goal.current_streak}</p>
-                        <p className="text-xs text-gray-400">Racha actual</p>
+                            <Flame size={17} />
+                            {goal.current_streak}
+                        </p>
+                        <p className="sm:text-xs text-[11px] text-gray-400">Racha actual</p>
                     </div>
-                    <div className="bg-blue-50 rounded-lg p-3 text-center">
-                        <p className="text-xl font-bold text-blue-600">{goal.max_streak}</p>
-                        <p className="text-xs text-gray-400">Mejor racha</p>
+                    <div className="bg-[#050A18] rounded-lg p-2 text-center">
+                        <p className="text-xl font-bold text-[#3B6EA8] flex flex-col items-center ">
+                            <Sparkles size={17} />
+                            {goal.max_streak}
+                        </p>
+                        <p className="sm:text-xs text-[11px] text-gray-400">Mejor racha</p>
                     </div>
-                    <div className="bg-red-50 rounded-lg p-3 text-center">
-                        <p className="text-xl font-bold text-red-400">{goal.missed_days}</p>
-                        <p className="text-xs text-gray-400">Días fallados</p>
+                    <div className="bg-[#050A18] rounded-lg p-2 text-center">
+                        <p className="text-xl font-bold text-red-400 flex flex-col items-center">
+                            <CalendarX size={17} />
+                            {goal.missed_days}
+                        </p>
+                        <p className="sm:text-xs text-[11px] text-gray-400">Días fallados</p>
                     </div>
                 </div>
             </div>
@@ -171,7 +178,7 @@ export default function GoalDetailPage({
             {/* Tareas del día */}
             <div className="flex items-center justify-between mb-4">
                 <div>
-                    <h2 className="text-lg font-bold text-gray-900">Tareas de hoy</h2>
+                    <h2 className="text-lg font-bold text-[#CBD5E1] ">Tareas de hoy</h2>
                     <p className="text-xs text-gray-400 mt-0.5 flex items-center gap-2">
                         {completedCount}/{tasks.length} completadas
                         {allCompleted && <PartyPopper />}
@@ -180,7 +187,7 @@ export default function GoalDetailPage({
                 {goal.status === 'active' && (
                     <button
                         onClick={() => setIsAddTaskOpen(true)}
-                        className="text-xs text-blue-600 hover:underline"
+                        className="text-xs text-[#CBD5E1] bg-[#463671] rounded-2xl px-2 py-1 hover:underline"
                     >
                         + Nueva tarea
                     </button>
@@ -189,7 +196,7 @@ export default function GoalDetailPage({
 
             {/* Banner si completó todo */}
             {allCompleted && (
-                <div className="bg-green-50 border border-green-100 rounded-xl p-4 mb-4 text-center">
+                <div className="bg-[#080F1F] rounded-xl p-4 mb-4 text-center">
                     <p className="text-green-700 font-medium text-sm flex items-center gap-2">
                         <PartyPopper /> ¡Completaste todas las tareas de hoy! Tu racha sigue viva.
                     </p>
@@ -218,9 +225,9 @@ export default function GoalDetailPage({
             </div>
 
             {/* Balance de puntos */}
-            <div className="mt-6 bg-blue-50 rounded-xl p-4 text-center">
-                <p className="text-2xl font-bold text-blue-600">{balance}</p>
-                <p className="text-xs text-gray-400 mt-1">Puntos disponibles</p>
+            <div className="mt-6 bg-[#080F1F] rounded-xl p-4 text-center">
+                <p className="text-2xl font-bold text-[#3B6EA8] ">{balance}</p>
+                <p className="text-xs text-[#3B6EA8] mt-1">Puntos disponibles</p>
             </div>
 
             {/* Modal agregar tarea */}

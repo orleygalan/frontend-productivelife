@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Reward } from '@/types';
+import { Lightbulb } from 'lucide-react';
 
 interface RewardFormProps {
     initial?: Reward | null;
@@ -63,8 +64,9 @@ export default function RewardForm({
                     min={1}
                     className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
-                <p className="text-xs text-gray-400 mt-1">
-                    💡 Las recompensas deben ser significativas. Ponle un costo alto para que valga la pena.
+                <p className="text-xs text-gray-400 mt-1 flex gap-1">
+                    <Lightbulb size={15} />
+                     Las recompensas deben ser significativas. Ponle un costo alto para que valga la pena.
                 </p>
             </div>
 

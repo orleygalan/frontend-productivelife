@@ -50,14 +50,14 @@ export default function GoalsPage() {
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Mis Metas</h1>
-                    <p className="text-gray-500 text-sm mt-1">
+                    <h1 className="text-2xl font-bold text-white ">Mis Metas</h1>
+                    <p className="text-white/50 text-sm mt-1">
                         {activeGoals.length} meta{activeGoals.length !== 1 ? 's' : ''} activa{activeGoals.length !== 1 ? 's' : ''}
                     </p>
                 </div>
                 <button
                     onClick={() => setIsCreateOpen(true)}
-                    className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors"
+                    className="bg-[#463671] text-[#CBD5E1] text-sm font-medium px-4 py-2.5 rounded-lg transition-colors"
                 >
                     + Nueva meta
                 </button>
@@ -82,10 +82,10 @@ export default function GoalsPage() {
                     {/* Metas activas */}
                     {activeGoals.length > 0 && (
                         <div>
-                            <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
+                            <h2 className="text-sm font-semibold text-[#CBD5E1] uppercase tracking-wider mb-4">
                                 Activas
                             </h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {activeGoals.map((goal) => (
                                     <GoalCard
                                         key={goal.id}
