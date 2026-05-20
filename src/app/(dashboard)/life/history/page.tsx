@@ -2,8 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { pointService } from '@/lib/services/pointService';
-import LifeStats from '@/components/life/LifeStats';
 import { BarChart3, Check, Flame, Gift } from 'lucide-react';
+import LoadingCards from '@/components/ui/LoadingCards';
 
 const typeConfig = {
     daily_task: {
@@ -33,18 +33,20 @@ export default function HistoryPage() {
     });
 
     return (
-        <div className="max-w-2xl mx-auto">
-            <LifeStats />
+        <div className="max-w-2xl mx-auto pt-10 md:pt-0">
+            {/* <LifeStats /> */}
 
             <div className="mb-6">
-                <h1 className="text-2xl font-bold text-[#CBD5E1] ">Historial de puntos</h1>
+                <h1 className="text-2xl font-bold text-[#CBD5E1] ">
+                    Historial de puntos
+                </h1>
                 <p className="text-[#CBD5E1]/70 text-sm mt-1">
                     Registro detallado de todos tus puntos ganados y gastados
                 </p>
             </div>
 
             {isLoading ? (
-                <p className="text-gray-400 text-sm">Cargando...</p>
+                <LoadingCards />
             ) : logs.length === 0 ? (
                 <div className="text-center py-16 border-2 border-dashed border-gray-100 rounded-xl">
                     <BarChart3 className="text-3xl mb-2" />
@@ -61,7 +63,7 @@ export default function HistoryPage() {
                         return (
                             <div
                                 key={log.id}
-                                className="bg-[#080F1F] rounded-xl px-2 py-3 flex items-center gap-4"
+                                className="bg-[#463671]/30 rounded-xl px-2 py-3 flex items-center gap-4"
                             >
                                 {/* Icono */}
                                 {/* <div className={`w-9 h-9 rounded-full ${config.bg} flex items-center justify-center shrink-0`}>

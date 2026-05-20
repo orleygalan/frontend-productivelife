@@ -18,8 +18,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
     if (!token || !user) return null;
 
+    const isWorkMode = user?.mode === 'work'
+
     return (
-        <div className="flex min-h-screen bg-[#050A18] ">
+        <div className={`flex min-h-screen ${isWorkMode ? 'bg-[#F5F1F2]' : 'bg-[#050A18]'} `}>
             <Sidebar />
             <main className="flex-1 md:ml-64 p-4 md:p-8">
                 {children}

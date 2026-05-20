@@ -17,14 +17,14 @@ export default function TaskCard({
     onDelete: () => void;
 }) {
     return (
-        <div className={`bg-[#080F1F] rounded-xl p-4 transition-all ${task.completed ? 'bg-[#080F1F]/50' : 'border-[#463671] '
+        <div className={`rounded-xl p-4 transition-all ${task.completed ? 'bg-[#463671]' : 'bg-[#463671]/30 '
             }`}>
             <div className="flex items-center gap-3">
                 {/* Checkbox */}
                 <button
                     onClick={task.completed ? onUncomplete : onComplete}
                     disabled={goalStatus !== 'active'}
-                    className={`w-7 h-7 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${task.completed
+                    className={`w-7 h-7 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors hover:cursor-pointer ${task.completed
                         ? 'bg-green-500 border-green-500 text-white'
                         : 'border-gray-300 hover:border-green-400'
                         }`}
@@ -38,23 +38,23 @@ export default function TaskCard({
                         }`}>
                         {task.title}
                     </p>
-                    <p className="text-xs text-[#19327f] mt-0.5"> <Star /> {task.xp_per_day} XP</p>
+                    <p className="text-xs text-purple-200 mt-0.5 flex gap-2"> <Star size={15} /> {task.xp_per_day} XP</p>
                 </div>
 
                 {/* Acciones - solo si es editable */}
                 {task.is_editable && !task.completed && goalStatus === 'active' && (
-                    <div className="flex gap-1">
+                    <div className="flex gap-3">
                         <button
                             onClick={onEdit}
                             className="text-gray-300 hover:text-blue-500 text-xs transition-colors"
                         >
-                            <Pencil />
+                            <Pencil size={15} />
                         </button>
                         <button
                             onClick={onDelete}
                             className="text-gray-300 hover:text-red-400 text-xs transition-colors"
                         >
-                            <Trash2 />
+                            <Trash2 size={15} />
                         </button>
                     </div>
                 )}

@@ -12,9 +12,9 @@ interface AddMemberFormProps {
 }
 
 const roles: { value: Role; label: string; description: string }[] = [
-    { value: 'admin', label: '👑 Admin', description: 'Puede gestionar el equipo y sus miembros' },
-    { value: 'editor', label: '✏️ Editor', description: 'Puede crear y editar proyectos y tareas' },
-    { value: 'viewer', label: '👁️ Viewer', description: 'Solo puede ver el contenido' },
+    { value: 'admin', label: 'Admin', description: 'Puede gestionar el equipo y sus miembros' },
+    { value: 'editor', label: 'Editor', description: 'Puede crear y editar proyectos y tareas' },
+    { value: 'viewer', label: 'Viewer', description: 'Solo puede ver el contenido' },
 ];
 
 export default function AddMemberForm({

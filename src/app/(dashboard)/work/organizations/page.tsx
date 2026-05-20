@@ -8,7 +8,8 @@ import Modal from '@/components/ui/Modal';
 import ConfirmDialog from '@/components/ui/ConfirmDialog';
 import OrganizationForm from '@/components/work/OrganizationForm';
 import { useRouter } from 'next/navigation';
-import { Building2, Pencil, Trash2 } from 'lucide-react';
+import { ArrowRight, Building2, Pencil, Trash2 } from 'lucide-react';
+import LoadingCards from '@/components/ui/LoadingCards';
 
 export default function OrganizationsPage() {
   const queryClient = useQueryClient();
@@ -54,18 +55,18 @@ export default function OrganizationsPage() {
 
   // console.log(editingOrg);
   return (
-    <div>
+    <div className='mt-10 md:mt-0'>
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-8 relative">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Organizaciones</h1>
+          <h1 className="text-2xl font-bold text-black">Organizaciones</h1>
           <p className="text-gray-500 text-sm mt-1">
             Gestiona tus organizaciones de trabajo
           </p>
         </div>
         <button
           onClick={() => setIsCreateOpen(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors"
+          className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors absolute right-0 -top-10 sm:static "
         >
           + Nueva organización
         </button>
@@ -73,9 +74,9 @@ export default function OrganizationsPage() {
 
       {/* Lista */}
       {isLoading ? (
-        <div className="text-gray-400 text-sm">Cargando...</div>
+        <LoadingCards />
       ) : organizations.length === 0 ? (
-        <div className="text-center py-20">
+        <div className="flex flex-col justify-center items-center py-20">
           <Building2 className="text-4xl mb-3" />
           <p className="text-gray-500 text-sm">
             No tienes organizaciones aún.
@@ -92,8 +93,7 @@ export default function OrganizationsPage() {
           {organizations.map((org) => (
             <div
               key={org.id}
-              onClick={() => router.push(`/work/organizations/${org.id}/teams`)}
-              className="bg-white rounded-xl border border-gray-100 p-5 hover:shadow-sm transition-shadow"
+              className="bg-white rounded-xl border border-gray-100 p-5 hover:shadow-sm transition-shadow cursor-pointer"
             >
               <div className="flex items-start justify-between">
                 <div>
@@ -117,6 +117,11 @@ export default function OrganizationsPage() {
                   </button>
                 </div>
               </div>
+              <button
+                onClick={() => router.push(`/work/organizations/${org.id}/teams`)}
+                className="text-xs text-white mt-3 flex justify-center items-center gap-1 bg-blue-600 px-3 py-1.5 rounded-3xl cursor-pointer whitespace-nowrap ">
+                Ver Equipos <ArrowRight size={13} />
+              </button>
             </div>
           ))}
         </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Goal, GoalTerm } from '@/types';
+import { GoalTerm } from '@/types';
 import { Star, Target, Trash2 } from 'lucide-react';
 import axios from 'axios';
 
@@ -128,7 +128,7 @@ export default function GoalForm({ onSubmit, onCancel, loading }: GoalFormProps)
         <form onSubmit={handleSubmit} className="space-y-5">
             {/* Datos de la meta */}
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-purple-200 mb-1">
                     Título de la meta <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -138,12 +138,12 @@ export default function GoalForm({ onSubmit, onCancel, loading }: GoalFormProps)
                     onChange={handleFormChange}
                     required
                     placeholder="Ej: Aprender inglés fluido"
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2.5 rounded-lg border border-purple-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 text-purple-200"
                 />
             </div>
 
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-purple-200 mb-1">
                     Descripción
                 </label>
                 <textarea
@@ -152,13 +152,13 @@ export default function GoalForm({ onSubmit, onCancel, loading }: GoalFormProps)
                     onChange={handleFormChange}
                     rows={2}
                     placeholder="¿Por qué quieres lograr esta meta?"
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                    className="w-full px-4 py-2.5 rounded-lg border border-purple-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 text-purple-200"
                 />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-purple-200 mb-1">
                         Fecha inicio <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -167,11 +167,11 @@ export default function GoalForm({ onSubmit, onCancel, loading }: GoalFormProps)
                         value={form.start_date}
                         onChange={handleFormChange}
                         required
-                        className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2.5 rounded-lg border border-purple-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 text-purple-200"
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-purple-200 mb-1">
                         Fecha límite <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -181,7 +181,7 @@ export default function GoalForm({ onSubmit, onCancel, loading }: GoalFormProps)
                         onChange={handleFormChange}
                         required
                         min={form.start_date}
-                        className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2.5 rounded-lg border border-purple-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 text-purple-200"
                     />
                 </div>
             </div>
@@ -199,7 +199,7 @@ export default function GoalForm({ onSubmit, onCancel, loading }: GoalFormProps)
             {/* Tareas diarias */}
             <div>
                 <div className="flex items-center justify-between mb-2">
-                    <label className="text-sm font-medium text-gray-700">
+                    <label className="text-sm font-medium text-purple-200">
                         Tareas diarias <span className="text-red-500">*</span>
                         <span className="text-gray-400 font-normal ml-1">(mínimo 2)</span>
                     </label>
@@ -214,7 +214,7 @@ export default function GoalForm({ onSubmit, onCancel, loading }: GoalFormProps)
 
                 <div className="space-y-3">
                     {tasks.map((task, index) => (
-                        <div key={index} className="flex gap-2 items-start bg-gray-50 rounded-lg p-3">
+                        <div key={index} className="flex gap-2 items-start bg-[#463671] rounded-lg p-3">
                             <div className="flex-1 space-y-2">
                                 <input
                                     type="text"
@@ -222,7 +222,7 @@ export default function GoalForm({ onSubmit, onCancel, loading }: GoalFormProps)
                                     onChange={(e) => handleTaskChange(index, 'title', e.target.value)}
                                     required
                                     placeholder={`Tarea ${index + 1} — ¿Qué harás cada día?`}
-                                    className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full px-4 py-2.5 rounded-lg border border-purple-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 text-purple-200"
                                 />
                                 <div className="flex items-center gap-2">
                                     <input
@@ -233,9 +233,9 @@ export default function GoalForm({ onSubmit, onCancel, loading }: GoalFormProps)
                                         min={range?.min ?? 100}
                                         max={range?.max ?? 300}
                                         placeholder={range ? `${range.min} - ${range.max} XP` : 'XP por día'}
-                                        className="w-32 px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-32 px-4 py-2.5 rounded-lg border border-purple-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 text-purple-200"
                                     />
-                                    <span className="text-xs text-yellow-500 font-medium flex items-center gap-2 ">
+                                    <span className="text-xs text-purple-100 font-medium flex items-center gap-2 ">
                                         <Star size={15} /> XP/día
                                     </span>
                                 </div>

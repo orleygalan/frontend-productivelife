@@ -8,9 +8,9 @@ import { Goal } from '@/types';
 import Modal from '@/components/ui/Modal';
 import ConfirmDialog from '@/components/ui/ConfirmDialog';
 import GoalForm from '@/components/life/GoalForm';
-import LifeStats from '@/components/life/LifeStats';
 import GoalCard from '@/components/life/GoalCard';
 import { Target } from 'lucide-react';
+import LoadingCards from '@/components/ui/LoadingCards';
 
 export default function GoalsPage() {
     const queryClient = useQueryClient();
@@ -44,8 +44,8 @@ export default function GoalsPage() {
     const completedGoals = goals.filter(g => g.status !== 'active');
 
     return (
-        <div className="max-w-4xl mx-auto">
-            <LifeStats />
+        <div className="max-w-4xl mx-auto pt-10 md:pt-0">
+            {/* <LifeStats />    */}
 
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
@@ -65,7 +65,7 @@ export default function GoalsPage() {
 
             {/* Lista */}
             {isLoading ? (
-                <p className="text-gray-400 text-sm">Cargando...</p>
+                <LoadingCards />
             ) : goals.length === 0 ? (
                 <div className="text-center py-20 border-2 border-dashed border-gray-100 rounded-xl">
                     <Target className="text-4xl mb-3" />
@@ -85,7 +85,7 @@ export default function GoalsPage() {
                             <h2 className="text-sm font-semibold text-[#CBD5E1] uppercase tracking-wider mb-4">
                                 Activas
                             </h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ">
                                 {activeGoals.map((goal) => (
                                     <GoalCard
                                         key={goal.id}

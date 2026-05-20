@@ -43,8 +43,8 @@ export default function RewardForm({
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Nombre <span className="text-red-500">*</span>
+                <label className="block text-sm font-medium text-purple-200 mb-1">
+                    Nombre <span className="text-red-600">*</span>
                 </label>
                 <input
                     type="text"
@@ -52,12 +52,12 @@ export default function RewardForm({
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     required
                     placeholder="Ej: Salir a cenar, Ver una película..."
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full px-4 py-2.5 rounded-lg border border-purple-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 text-purple-200"
                 />
             </div>
 
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-purple-200 mb-1">
                     Costo en puntos <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -66,7 +66,7 @@ export default function RewardForm({
                     onChange={(e) => setForm({ ...form, points_cost: Number(e.target.value) })}
                     required
                     min={1}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full px-4 py-2.5 rounded-lg border border-purple-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 text-purple-200"
                 />
                 <p className="text-xs text-gray-400 mt-1 flex gap-1">
                     <Lightbulb size={15} />

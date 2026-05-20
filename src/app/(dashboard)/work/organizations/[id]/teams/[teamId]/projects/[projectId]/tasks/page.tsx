@@ -13,6 +13,7 @@ import ConfirmDialog from '@/components/ui/ConfirmDialog';
 import TaskForm from '@/components/work/TaskForm';
 import KanbanColumn from '@/components/work/KanbanColumn';
 import { ChevronRight } from 'lucide-react';
+import LoadingCards from '@/components/ui/LoadingCards';
 
 const columns: { status: TaskStatus; title: string; color: string }[] = [
     { status: 'todo', title: 'Por hacer', color: 'bg-gray-400' },
@@ -117,23 +118,25 @@ export default function TasksPage({
         tasks.filter((t) => t.status === status);
 
     return (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full pt-9 md:pt-0">
             {/* Breadcrumb */}
-            <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
+            <div className="flex items-center gap-2 text-xs text-gray-400 mb-6">
                 <button
                     onClick={() => router.push('/work/organizations')}
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-blue-600 transition-colors hidden sm:block"
                 >
                     Organizaciones
                 </button>
-                  <ChevronRight size={16} />
+                <button className='sm:hidden'> ... </button>
+                <ChevronRight size={16} />
                 <button
                     onClick={() => router.push(`/work/organizations/${organizationId}/teams`)}
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-blue-600 transition-colors hidden sm:block"
                 >
                     {organization?.name ?? '...'}
                 </button>
-                  <ChevronRight size={16} />
+                <button className='sm:hidden'> ... </button>
+                <ChevronRight size={16} />
                 <button
                     onClick={() =>
                         router.push(`/work/organizations/${organizationId}/teams/${teamId}/projects`)
@@ -142,19 +145,19 @@ export default function TasksPage({
                 >
                     {team?.name ?? '...'}
                 </button>
-                  <ChevronRight size={16} />
+                <ChevronRight size={16} />
                 <span className="text-gray-700 font-medium">{project?.name ?? '...'}</span>
             </div>
 
             {/* Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between my-8 relative">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900">{project?.name ?? 'Tareas'}</h1>
                     <p className="text-gray-500 text-sm mt-1">Tablero de tareas</p>
                 </div>
                 <button
                     onClick={() => setIsCreateOpen(true)}
-                    className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors"
+                    className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors absolute right-0 -top-10 sm:static"
                 >
                     + Nueva tarea
                 </button>
@@ -162,9 +165,9 @@ export default function TasksPage({
 
             {/* Kanban */}
             {isLoading ? (
-                <div className="text-gray-400 text-sm">Cargando...</div>
+               <LoadingCards />
             ) : (
-                <div className="flex gap-6 flex-1">
+                <div className='flex gap-6 flex-1 overflow-x-scroll max-w-[90vw] '>
                     {columns.map((col) => (
                         <KanbanColumn
                             key={col.status}

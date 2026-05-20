@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/store/authStore";
 import Modal from "./Modal";
 
 interface ConfirmDialogProps {
@@ -11,11 +12,15 @@ interface ConfirmDialogProps {
 
 export default function ConfirmDialog({ isOpen, onClose, onConfirm, title, message, loading, }: ConfirmDialogProps) {
 
+    const {user} = useAuthStore();
+
     if (!isOpen) return null;
+    
+    const isWorkMode = user?.mode === 'work';
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} title={title}>
-            <p className="text-sm text-gray-500 mb-6">{message}</p>
+            <p className={`text-sm ${isWorkMode ? 'text-black/80' : 'text-purple-100'} mb-6`}>{message}</p>
             <div className="flex gap-3 justify-end">
                 <button
                     onClick={onClose}

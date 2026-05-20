@@ -2,7 +2,7 @@
 
 import { authService } from "@/lib/services/authService";
 import { useAuthStore } from "@/store/authStore";
-import { ClipboardList, Gift, Sprout, DoorOpen, Briefcase, BarChart, Menu, X, ChevronRight, PanelLeft, ChevronLeft, } from "lucide-react";
+import { ClipboardList, Gift, Sprout, DoorOpen, Briefcase, BarChart, X, ChevronRight, PanelLeft, AlignLeft, } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -57,12 +57,14 @@ export default function Sidebar() {
             {/* Boton toggle Mobile / solo visible en mobile */}
             <button
                 onClick={() => setMobileOpen(prev => !prev)}
-                className={`fixed top-6 z-50 md:hidden bg-[#463671] text-white w-6 h-10 rounded-r-lg flex items-center justify-center transition-all duration-300 ease-in-out shadow-lg ${mobileOpen ? 'left-64' : 'left-0'}`}
+                className={`fixed top-2 z-50 md:hidden w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 ease-in-out shadow-lg
+                ${isWorkMode ? 'bg-white text-blue-600' : 'bg-[#463671] text-white'} 
+                ${mobileOpen ? 'left-54' : 'left-3'}`}
                 aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
             >
                 {mobileOpen
-                    ? <ChevronLeft size={14} />
-                    : <ChevronRight size={14} />
+                    ? <X size={14} />
+                    : <AlignLeft size={22} />
                 }
             </button>
 
@@ -75,14 +77,18 @@ export default function Sidebar() {
             )}
 
             {/* Sidebar*/}
-            <aside className={`fixed top-0 left-0 z-40 h-full bg-[#030610] flex flex-col transition-all duration-300 ease-in-out ${collapsed ? 'w-16' : 'w-64'} ${mobileOpen ? 'translate-x-0 w-64' : '-translate-x-full'} md:translate-x-0`}>
+            <aside className={`fixed top-0 left-0 z-40 h-full flex flex-col transition-all duration-300 ease-in-out
+                 ${collapsed ? 'w-16' : 'w-64'} 
+                 ${mobileOpen ? 'translate-x-0 w-64' : '-translate-x-full'} 
+                 ${isWorkMode ? 'bg-white' : 'bg-[#030610]'}
+                 md:translate-x-0`}>
 
                 {/* Header: Logo + boton collapse (desktop) */}
                 <div className={`flex items-center border-b border-white/10 h-16 shrink-0 ${collapsed ? 'justify-center px-2' : 'justify-between px-5'
                     }`}>
                     {!collapsed && (
                         <div>
-                            <h1 className="text-base font-bold text-white leading-tight">
+                            <h1 className={`text-base font-bold ${isWorkMode ? 'text-[#030610]' : 'text-white'} leading-tight`}>
                                 ProductiveLife
                             </h1>
                             <p className="text-xs text-gray-400">{user?.name}</p>
@@ -92,7 +98,7 @@ export default function Sidebar() {
                     {/* Botón collapse - solo desktop */}
                     <button
                         onClick={() => setCollapsed(prev => !prev)}
-                        className="hidden md:flex items-center justify-center w-8 h-8 rounded-lg text-gray-400 hover:bg-white/10 hover:text-white transition-colors"
+                        className="hidden md:flex items-center justify-center w-8 h-8 rounded-lg text-gray-400 hover:bg-[#463671]/30 hover:text-white transition-colors"
                         aria-label={collapsed ? 'Expandir menú' : 'Colapsar menú'}
                     >
                         <PanelLeft className="w-5 h-5" />
@@ -137,10 +143,13 @@ export default function Sidebar() {
                                 href={href}
                                 onClick={() => setMobileOpen(false)}
                                 title={collapsed ? label : ''}
-                                className={`flex items-center rounded-lg text-sm transition-colors ${collapsed ? 'justify-center p-2.5' : 'gap-3 px-4 py-2.5'
-                                    } ${isActive
-                                        ? 'bg-[#0a1543] text-white font-medium border border-white/10'
-                                        : 'text-[#CBD5E1]/70 hover:bg-[#080F1F] hover:text-white'
+                                className={`flex items-center rounded-lg text-sm transition-colors ${collapsed ? 'justify-center p-2.5' : 'gap-3 px-4 py-2.5'}
+                                 ${isActive ?
+                                        `
+                                        ${isWorkMode ? 'bg-blue-600' : 'bg-[#463671]'} text-white font-medium border border-white/10
+                                        ` : `
+                                        text-[#CBD5E1]/70 hover:bg-[#080F1F] hover:text-white
+                                        `
                                     }`}
                             >
                                 {icon}

@@ -8,8 +8,16 @@ import { GoalTask } from '@/types';
 import ConfirmDialog from '@/components/ui/ConfirmDialog';
 import Modal from '@/components/ui/Modal';
 import axios from 'axios';
-import { ArrowRight, Calendar, CalendarX, ChevronRight, Flame, PartyPopper, Sparkles } from 'lucide-react';
+import { ArrowRight, Calendar, CalendarDays, CalendarX, ChevronRight, Flame, PartyPopper, Sparkles } from 'lucide-react';
 import TaskCard from '@/components/life/TaskCard';
+import LoadingCards from '@/components/ui/LoadingCards';
+
+function daysLeft(endDate: string): number {
+    const end = new Date(endDate);
+    const today = new Date();
+    const diff = Math.ceil((end.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    return Math.max(0, diff);
+}
 
 export default function GoalDetailPage({
     params,
@@ -110,16 +118,18 @@ export default function GoalDetailPage({
         long: 'Largo plazo',
     };
 
-    if (isLoading) return <p className="text-gray-400 text-sm">Cargando...</p>;
+    if (isLoading) return <LoadingCards />;
     if (!goal) return <p className="text-gray-400 text-sm">Meta no encontrada.</p>;
 
+    const days = daysLeft(goal.end_date);
+
     return (
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto pt-10 md:pt-0">
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
                 <button
                     onClick={() => router.push('/life/goals')}
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-[#463671] transition-colors"
                 >
                     Mis metas
                 </button>
@@ -128,15 +138,22 @@ export default function GoalDetailPage({
             </div>
 
             {/* Header de la meta */}
-            <div className="bg-[#080F1F] rounded-xl p-3 sm:p-6 mb-6">
+            <div className="bg-[#463671]/30 rounded-xl p-3 sm:p-6 mb-6">
                 <div className="flex items-start justify-between mb-3">
                     <div>
-                        <h1 className="text-xl font-bold text-[#CBD5E1] ">{goal.title}</h1>
+                        <h1 className="text-xl font-bold text-purple-300 flex flex-col-reverse ">
+                            {goal.title}
+                            <span className={`text-xs font-semibold sm:hidden ${termColors[goal.term]}`}>
+                                {termLabels[goal.term]}
+                            </span>
+                        </h1>
                         {goal.description && (
-                            <p className="text-sm text-gray-400 mt-1">{goal.description}</p>
+                            <p className="text-sm text-purple-100 mt-1">
+                                {goal.description}
+                            </p>
                         )}
                     </div>
-                    <span className={`text-sm font-semibold px-2 py-1 rounded-3xl bg-[#463671] ${termColors[goal.term]}`}>
+                    <span className={`text-xs font-semibold hidden sm:block ${termColors[goal.term]}`}>
                         {termLabels[goal.term]}
                     </span>
                 </div>
@@ -151,21 +168,21 @@ export default function GoalDetailPage({
 
                 {/* Stats de la meta */}
                 <div className="grid grid-cols-3 gap-3">
-                    <div className="bg-[#050A18] rounded-lg p-2 text-center">
+                    <div className="bg-[#463671] rounded-lg p-2 text-center">
                         <p className="text-xl font-bold text-orange-500 flex flex-col items-center">
                             <Flame size={17} />
                             {goal.current_streak}
                         </p>
                         <p className="sm:text-xs text-[11px] text-gray-400">Racha actual</p>
                     </div>
-                    <div className="bg-[#050A18] rounded-lg p-2 text-center">
-                        <p className="text-xl font-bold text-[#3B6EA8] flex flex-col items-center ">
-                            <Sparkles size={17} />
-                            {goal.max_streak}
+                    <div className="bg-[#463671] rounded-lg p-2 text-center">
+                        <p className="text-xl font-bold text-purple-300 flex flex-col items-center">
+                            <CalendarDays size={17} />
+                            {days}d
                         </p>
-                        <p className="sm:text-xs text-[11px] text-gray-400">Mejor racha</p>
+                        <p className="text-xs text-gray-400">Restantes</p>
                     </div>
-                    <div className="bg-[#050A18] rounded-lg p-2 text-center">
+                    <div className="bg-[#463671] rounded-lg p-2 text-center">
                         <p className="text-xl font-bold text-red-400 flex flex-col items-center">
                             <CalendarX size={17} />
                             {goal.missed_days}
@@ -187,7 +204,7 @@ export default function GoalDetailPage({
                 {goal.status === 'active' && (
                     <button
                         onClick={() => setIsAddTaskOpen(true)}
-                        className="text-xs text-[#CBD5E1] bg-[#463671] rounded-2xl px-2 py-1 hover:underline"
+                        className="text-xs text-[#CBD5E1] bg-[#463671] rounded-2xl px-4 py-2 hover:cursor-pointer "
                     >
                         + Nueva tarea
                     </button>
@@ -238,27 +255,27 @@ export default function GoalDetailPage({
             >
                 <div className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Título <span className="text-red-500">*</span>
+                        <label className="block text-sm font-medium text-purple-200 mb-1">
+                            Título <span className="text-red-600">*</span>
                         </label>
                         <input
                             type="text"
                             value={newTask.title}
                             onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
                             placeholder="¿Qué harás cada día?"
-                            className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2.5 rounded-lg border border-purple-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 text-purple-200"
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                            XP por día <span className="text-red-500">*</span>
+                        <label className="block text-sm font-medium text-purple-200 mb-1">
+                            XP por día <span className="text-red-600">*</span>
                         </label>
                         <input
                             type="number"
                             value={newTask.xp_per_day || ''}
                             onChange={(e) => setNewTask({ ...newTask, xp_per_day: Number(e.target.value) })}
                             placeholder="XP"
-                            className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2.5 rounded-lg border border-purple-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 text-purple-200"
                         />
                         {/* Muestra el rango permitido segun el term de la meta */}
                         {goal && (
@@ -301,21 +318,21 @@ export default function GoalDetailPage({
             >
                 <div className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Título</label>
+                        <label className="block text-sm font-medium text-purple-200 mb-1">Título</label>
                         <input
                             type="text"
                             value={editingTask?.title ?? ''}
                             onChange={(e) => setEditingTask(prev => prev ? { ...prev, title: e.target.value } : null)}
-                            className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2.5 rounded-lg border border-purple-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 text-purple-200"
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">XP por día</label>
+                        <label className="block text-sm font-medium text-purple-200 mb-1">XP por día</label>
                         <input
                             type="number"
                             value={editingTask?.xp_per_day ?? ''}
                             onChange={(e) => setEditingTask(prev => prev ? { ...prev, xp_per_day: Number(e.target.value) } : null)}
-                            className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2.5 rounded-lg border border-purple-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 text-purple-200"
                         />
                     </div>
                     <div className="flex gap-3 justify-end">

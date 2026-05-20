@@ -10,6 +10,7 @@ import ConfirmDialog from '@/components/ui/ConfirmDialog';
 import RewardForm from '@/components/life/RewardForm';
 import LifeStats from '@/components/life/LifeStats';
 import { Check, Gem, Gift, Lightbulb, PartyPopper, Pencil, Target, Trash2 } from 'lucide-react';
+import LoadingCards from '@/components/ui/LoadingCards';
 
 export default function RewardsPage() {
     const queryClient = useQueryClient();
@@ -79,7 +80,7 @@ export default function RewardsPage() {
     };
 
     return (
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto pt-10 md:pt-0">
             <LifeStats />
 
             {/* Header */}
@@ -105,7 +106,7 @@ export default function RewardsPage() {
             </div>
 
             {/* Balance actual */}
-            <div className="bg-[#080F1F] from-purple-50 to-blue-50 rounded-xl p-5 mb-6">
+            <div className="bg-[#463671]/30 from-purple-50 to-blue-50 rounded-xl p-5 mb-6">
                 <div className="flex items-center justify-between">
                     <div>
                         <p className="text-xs sm:text-sm text-[#CBD5E1] ">Tu balance actual</p>
@@ -127,7 +128,7 @@ export default function RewardsPage() {
 
             {/* Lista de recompensas */}
             {isLoading ? (
-                <p className="text-gray-400 text-sm">Cargando...</p>
+                <LoadingCards />
             ) : rewards.length === 0 ? (
                 <div className="text-center py-16 border-2 border-dashed border-gray-100 rounded-xl">
                     <p className="mb-2">
@@ -152,7 +153,7 @@ export default function RewardsPage() {
                             return (
                                 <div
                                     key={reward.id}
-                                    className={`bg-[#080F1F] rounded-xl border p-5 transition-all ${canAfford ? 'border-[#463671] ' : 'border-[#0a1543] '
+                                    className={`bg-[#463671]/30 rounded-xl border p-5 transition-all ${canAfford ? 'shadow-2xl ' : 'border-[#463671] '
                                         }`}
                                 >
                                     <div className="flex items-start justify-between gap-3">

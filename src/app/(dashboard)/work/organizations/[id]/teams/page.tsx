@@ -11,6 +11,7 @@ import ConfirmDialog from '@/components/ui/ConfirmDialog';
 import TeamForm from '@/components/work/TeamForm';
 import { ArrowRight, ChevronRight, Pencil, Trash2, Users } from 'lucide-react';
 import AddMemberForm from '@/components/work/AddMemberForm';
+import LoadingCards from '@/components/ui/LoadingCards';
 
 const roleColors: Record<string, string> = {
     admin: 'bg-purple-100 text-purple-700',
@@ -19,9 +20,9 @@ const roleColors: Record<string, string> = {
 };
 
 const roleLabels: Record<string, string> = {
-    admin: '👑 Admin',
-    editor: '✏️ Editor',
-    viewer: '👁️ Viewer',
+    admin: 'Admin',
+    editor: 'Editor',
+    viewer: 'Viewer',
 };
 
 export default function TeamsPage({
@@ -123,15 +124,16 @@ export default function TeamsPage({
     };
 
     return (
-        <div>
+        <div className='pt-9 md:pt-0'>
             {/* Breadcrumb */}
-            <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
+            <div className="flex items-center gap-2 text-xs text-gray-400 mb-6">
                 <button
                     onClick={() => router.push('/work/organizations')}
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-blue-600 transition-colors hidden sm:block"
                 >
                     Organizaciones
                 </button>
+                <button className='sm:hidden'> ... </button>
                 <ChevronRight size={16} />
                 <span className="text-gray-700 font-medium">{organization?.name ?? '...'}</span>
                 <ChevronRight size={16} />
@@ -139,7 +141,7 @@ export default function TeamsPage({
             </div>
 
             {/* Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-8 pt-8 relative">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900">Equipos</h1>
                     <p className="text-gray-500 text-sm mt-1">
@@ -148,7 +150,7 @@ export default function TeamsPage({
                 </div>
                 <button
                     onClick={() => setIsCreateOpen(true)}
-                    className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors"
+                    className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors absolute right-0 -top-4 sm:static"
                 >
                     + Nuevo equipo
                 </button>
@@ -156,9 +158,9 @@ export default function TeamsPage({
 
             {/* Lista */}
             {isLoading ? (
-                <div className="text-gray-400 text-sm">Cargando...</div>
+                <LoadingCards />
             ) : teams.length === 0 ? (
-                <div className="text-center py-20">
+                <div className="flex flex-col justify-center items-center py-20">
                     <Users className="text-4xl mb-3" />
                     <p className="text-gray-500 text-sm">No hay equipos en esta organización.</p>
                     <button
@@ -173,43 +175,45 @@ export default function TeamsPage({
                     {teams.map((team) => (
                         <div
                             key={team.id}
-                            onClick={() =>
-                                router.push(`/work/organizations/${organizationId}/teams/${team.id}/projects`)
-                            }
-                            className="bg-white rounded-xl border border-gray-100 p-5 hover:shadow-md hover:border-blue-100 transition-all cursor-pointer"
+                            className="bg-white rounded-xl border border-gray-100 p-3 hover:shadow-md hover:border-blue-100 transition-all"
                         >
                             <div className="flex items-start justify-between">
                                 <div>
                                     <h3 className="font-semibold text-gray-900">{team.name}</h3>
-                                    <p className="text-xs text-gray-400 mt-1 flex justify-center items-center gap-1">
+                                    <button
+                                        onClick={() =>
+                                            router.push(`/work/organizations/${organizationId}/teams/${team.id}/projects`)
+                                        }
+                                        className="text-xs text-white mt-5 flex justify-center items-center gap-1 bg-blue-600 px-3 py-1.5 rounded-3xl cursor-pointer whitespace-nowrap ">
                                         Ver proyectos <ArrowRight size={13} />
-                                    </p>
+                                    </button>
                                 </div>
-                                <div className="flex gap-2 ml-2">
+                                <div className="flex gap-4 ml-2">
                                     <button
                                         onClick={(e) => handleManageMembers(e, team)}
-                                        className="text-gray-400 hover:text-purple-600 text-sm transition-colors"
+                                        className="text-gray-400 hover:text-purple-600 text-sm transition-colors cursor-pointer"
                                         title="Gestionar miembros"
                                     >
-                                        👥
+                                        <Users size={15} />
                                     </button>
                                     <button
                                         onClick={(e) => handleEdit(e, team)}
-                                        className="text-gray-400 hover:text-blue-600 text-sm transition-colors"
+                                        className="text-gray-400 hover:text-blue-600 text-sm transition-colors cursor-pointer"
                                     >
-                                        <Pencil size={18} />
+                                        <Pencil size={15} />
                                     </button>
                                     <button
                                         onClick={(e) => handleDelete(e, team)}
-                                        className="text-gray-400 hover:text-red-500 text-sm transition-colors"
+                                        className="text-gray-400 hover:text-red-500 text-sm transition-colors cursor-pointer"
                                     >
-                                        <Trash2 size={18} />
+                                        <Trash2 size={15} />
                                     </button>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
+
             )}
 
             {/* Modal Crear equipo */}
@@ -264,7 +268,9 @@ export default function TeamsPage({
                                 >
                                     <div>
                                         <p className="text-sm font-medium text-gray-800">{member.name}</p>
-                                        <p className="text-xs text-gray-400">{member.email}</p>
+                                        <p className="text-xs text-gray-400">
+                                            {member.email}
+                                        </p>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <span className={`... ${roleColors[member.pivot?.role ?? 'editor']}`}>
@@ -274,7 +280,7 @@ export default function TeamsPage({
                                             onClick={() => setRemovingMember({ member, teamId: managingTeam!.id })}
                                             className="text-gray-300 hover:text-red-400 transition-colors text-xs"
                                         >
-                                            🗑️
+                                            <Trash2 size={18} />
                                         </button>
                                     </div>
                                 </div>

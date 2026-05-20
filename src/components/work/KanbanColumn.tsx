@@ -29,7 +29,7 @@ export default function KanbanColumn({
     onChangeStatus,
 }: KanbanColumnProps) {
     return (
-        <div className="flex-1 min-w-0">
+        <div className="flex-shrink-0 lg:flex-1 min-w-0">
             {/* Header columna */}
             <div className={`flex items-center gap-2 mb-4 px-1`}>
                 <span className={`w-2.5 h-2.5 rounded-full ${color}`} />
@@ -49,10 +49,10 @@ export default function KanbanColumn({
                     tasks.map((task) => (
                         <div
                             key={task.id}
-                            className="bg-white rounded-xl border border-gray-100 p-4 hover:shadow-sm transition-shadow"
+                            className="bg-white rounded-xl border border-gray-100 hover:shadow-sm transition-shadow p-4"
                         >
                             <div className="flex items-start justify-between gap-2">
-                                <p className="text-sm font-medium text-gray-800 leading-snug">
+                                <p className="text-sm font-medium text-gray-800 leading-snug ">
                                     {task.title}
                                 </p>
                                 <div className="flex gap-1 shrink-0">
@@ -60,7 +60,7 @@ export default function KanbanColumn({
                                         onClick={() => onEdit(task)}
                                         className="text-gray-300 hover:text-blue-500 transition-colors text-xs"
                                     >
-                                         <Pencil size={18} />
+                                        <Pencil size={18} />
                                     </button>
                                     <button
                                         onClick={() => onDelete(task)}

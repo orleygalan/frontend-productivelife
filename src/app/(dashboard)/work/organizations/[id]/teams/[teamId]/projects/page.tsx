@@ -1,6 +1,7 @@
 "use client";
 
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
+import LoadingCards from "@/components/ui/LoadingCards";
 import Modal from "@/components/ui/Modal";
 import ProjectForm from "@/components/work/ProjectForm";
 import { organizationService } from "@/lib/services/organizationService";
@@ -86,22 +87,24 @@ export default function ProjectsPage({
     };
 
     return (
-        <div>
+        <div className="pt-9 md:pt-0">
             {/* Breadcrumb */}
-            <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
+            <div className="flex items-center gap-1 text-xs text-gray-400 mb-6">
                 <button
                     onClick={() => router.push('/work/organizations')}
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-blue-600 transition-colors hidden sm:block"
                 >
                     Organizaciones
                 </button>
+                <button className='sm:hidden'> ... </button>
                 <ChevronRight size={16} />
                 <button
                     onClick={() => router.push(`/work/organizations/${organizationId}/teams`)}
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-blue-600 transition-colors hidden sm:block"
                 >
                     {organization?.name ?? '...'}
                 </button>
+                <button className='sm:hidden'> ... </button>
                 <ChevronRight size={16} />
                 <span className="text-gray-700 font-medium">{team?.name ?? '...'}</span>
                 <ChevronRight size={16} />
@@ -109,7 +112,7 @@ export default function ProjectsPage({
             </div>
 
             {/* Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-8 pt-8 relative">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900">Proyectos</h1>
                     <p className="text-gray-500 text-sm mt-1">
@@ -118,7 +121,7 @@ export default function ProjectsPage({
                 </div>
                 <button
                     onClick={() => setIsCreateOpen(true)}
-                    className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors"
+                    className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors  absolute -top-2 right-0 sm:static"
                 >
                     + Nuevo proyecto
                 </button>
@@ -126,7 +129,7 @@ export default function ProjectsPage({
 
             {/* Lista */}
             {isLoading ? (
-                <div className="text-gray-400 text-sm">Cargando...</div>
+                <LoadingCards />
             ) : projects.length === 0 ? (
                 <div className="text-center py-20">
                     <Folder className="text-4xl text-amber-600 mb-3" />
@@ -143,11 +146,6 @@ export default function ProjectsPage({
                     {projects.map((project) => (
                         <div
                             key={project.id}
-                            onClick={() =>
-                                router.push(
-                                    `/work/organizations/${organizationId}/teams/${teamId}/projects/${project.id}/tasks`
-                                )
-                            }
                             className="bg-white rounded-xl border border-gray-100 p-5 hover:shadow-md hover:border-blue-100 transition-all cursor-pointer"
                         >
                             <div className="flex items-start justify-between">
@@ -177,9 +175,15 @@ export default function ProjectsPage({
                                     </button>
                                 </div>
                             </div>
-                            <p className="text-xs text-gray-400 mt-3 flex justify-start items-center gap-1">
+                            <button
+                                onClick={() =>
+                                    router.push(
+                                        `/work/organizations/${organizationId}/teams/${teamId}/projects/${project.id}/tasks`
+                                    )
+                                }
+                                className="text-xs text-white mt-3 flex justify-start items-center gap-1 bg-blue-600 py-1.5 px-4 rounded-3xl ">
                                 Ver tareas <ArrowRight size={13} />
-                            </p>
+                            </button>
                         </div>
                     ))}
                 </div>
