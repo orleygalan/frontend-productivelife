@@ -98,6 +98,7 @@ export default function RewardsPage() {
                     )}
                 </div>
                 <button
+                    disabled={isLoading}
                     onClick={() => setIsCreateOpen(true)}
                     className="bg-[#463671] text-white h-full text-xs sm:text-sm font-medium px-2 py-1.5 rounded-lg transition-colors whitespace-nowrap "
                 >

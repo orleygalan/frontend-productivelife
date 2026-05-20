@@ -8,9 +8,9 @@ export default function LoadingCards() {
     const isWorkMode = user?.mode === 'work'
 
     return (
-        <div className="w-full h-screen flex flex-col gap-3 p-2">
-            {Array.from({ length: 5 }).map((_, i) => (
-                <div key={i} className={`flex-1 ${isWorkMode ? 'bg-gray-300' : 'bg-[#463671]/30'} rounded-2xl animate-pulse shadow-sm`} />
+        <div className="w-full flex flex-col gap-3 p-2">
+            {Array.from({ length: 7 }).map((_, i) => (
+                <div key={i} className={`h-20 ${isWorkMode ? 'bg-gray-300' : 'bg-[#463671]/30'} rounded-2xl animate-pulse shadow-sm`} />
             ))}
         </div>
     )

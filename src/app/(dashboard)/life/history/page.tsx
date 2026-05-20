@@ -63,7 +63,7 @@ export default function HistoryPage() {
                         return (
                             <div
                                 key={log.id}
-                                className="bg-[#463671]/30 rounded-xl px-2 py-3 flex items-center gap-4"
+                                className="bg-[#463671]/30 rounded-xl px-2 py-3 flex items-center gap-4 w-[91vw]"
                             >
                                 {/* Icono */}
                                 {/* <div className={`w-9 h-9 rounded-full ${config.bg} flex items-center justify-center shrink-0`}>
@@ -72,7 +72,7 @@ export default function HistoryPage() {
 
                                 {/* Info */}
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-xs font-medium text-[#CBD5E1]/50 truncate">
+                                    <p className="text-xs font-medium text-[#CBD5E1]/50 truncate line-clamp-1 ">
                                         {log.description}
                                     </p>
                                     <div className="flex items-center gap-2 mt-0.5">
