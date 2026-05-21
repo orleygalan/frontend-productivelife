@@ -64,7 +64,7 @@ export default function GoalsPage() {
                 </button>
             </div>
 
-   //         {/* Lista */}
+            {/* Lista */}
             {isLoading ? (
                 <LoadingCards />
             ) : goals.length === 0 ? (
