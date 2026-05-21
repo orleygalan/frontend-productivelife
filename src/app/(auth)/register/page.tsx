@@ -6,6 +6,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react"
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function RegisterPage() {
 
@@ -20,6 +21,8 @@ export default function RegisterPage() {
     });
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -38,7 +41,7 @@ export default function RegisterPage() {
                 const responseErrors = error.response?.data?.errors as Record<string, string[] | undefined>;
 
                 if (responseErrors) {
-                    // Laravel devuelve errores de validacion por campos
+                    // Esperamos errores de validacion por campos
                     const mapped: Record<string, string> = {};
 
                     Object.entries(responseErrors).forEach(([Key, val]) => {
@@ -98,15 +101,24 @@ export default function RegisterPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                         Contraseña
                     </label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={form.password}
-                        onChange={handleChange}
-                        required
-                        placeholder="Mínimo 8 caracteres"
-                        className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
+                    <div className="relative">
+                        <input
+                            type={showPassword ? 'text' : 'password'}
+                            name="password"
+                            value={form.password}
+                            onChange={handleChange}
+                            required
+                            placeholder="Mínimo 8 caracteres"
+                            className="w-full px-4 py-2.5 pr-10 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                        >
+                            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                        </button>
+                    </div>
                     {errors.password && <p className="text-xs text-red-500 mt-1">{errors.password}</p>}
                 </div>
 
@@ -114,15 +126,24 @@ export default function RegisterPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                         Confirmar contraseña
                     </label>
-                    <input
-                        type="password"
-                        name="password_confirmation"
-                        value={form.password_confirmation}
-                        onChange={handleChange}
-                        required
-                        placeholder="Repite tu contraseña"
-                        className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
+                    <div className="relative">
+                        <input
+                            type={showConfirmPassword ? 'text' : 'password'}
+                            name="password_confirmation"
+                            value={form.password_confirmation}
+                            onChange={handleChange}
+                            required
+                            placeholder="Repite tu contraseña"
+                            className="w-full px-4 py-2.5 pr-10 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                        >
+                            {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                        </button>
+                    </div>
                 </div>
 
                 {errors.general && (

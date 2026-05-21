@@ -33,7 +33,7 @@ export default function HistoryPage() {
     });
 
     return (
-        <div className="max-w-2xl mx-auto pt-10 md:pt-0">
+        <div className="max-w-2xl mx-auto pt-10 md:pt-0 ">
             {/* <LifeStats /> */}
 
             <div className="mb-6">
@@ -63,7 +63,7 @@ export default function HistoryPage() {
                         return (
                             <div
                                 key={log.id}
-                                className="bg-[#463671]/30 rounded-xl px-2 py-3 flex items-center gap-4 w-[91vw]"
+                                className="bg-[#463671]/30 rounded-xl px-2 py-3 flex items-center gap-4 w-[90vw] md:w-[90%] lg:w-auto "
                             >
                                 {/* Icono */}
                                 {/* <div className={`w-9 h-9 rounded-full ${config.bg} flex items-center justify-center shrink-0`}>

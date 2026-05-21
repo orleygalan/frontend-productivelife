@@ -79,51 +79,52 @@ export default function GoalsPage() {
                     </button>
                 </div>
             ) : (
-                <div className="space-y-8">
-                    {/* Metas activas */}
-                    {activeGoals.length > 0 && (
-                        <div>
-                            <h2 className="text-sm font-semibold text-[#CBD5E1] uppercase tracking-wider mb-4">
-                                Activas
-                            </h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ">
-                                {activeGoals.map((goal) => (
-                                    <GoalCard
-                                        key={goal.id}
-                                        goal={goal}
-                                        onOpen={() => router.push(`/life/goals/${goal.id}`)}
-                                        onDelete={(e) => {
-                                            e.stopPropagation();
-                                            setDeletingGoal(goal);
-                                        }}
-                                    />
-                                ))}
-                            </div>
-                        </div>
-                    )}
+                // <div className="space-y-8">
+                //     {/* Metas activas */}
+                //     {activeGoals.length > 0 && (
+                //         <div>
+                //             <h2 className="text-sm font-semibold text-[#CBD5E1] uppercase tracking-wider mb-4">
+                //                 Activas
+                //             </h2>
+                //             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ">
+                //                 {activeGoals.map((goal) => (
+                //                     <GoalCard
+                //                         key={goal.id}
+                //                         goal={goal}
+                //                         onOpen={() => router.push(`/life/goals/${goal.id}`)}
+                //                         onDelete={(e) => {
+                //                             e.stopPropagation();
+                //                             setDeletingGoal(goal);
+                //                         }}
+                //                     />
+                //                 ))}
+                //             </div>
+                //         </div>
+                //     )}
 
-                    {/* Metas completadas/fallidas */}
-                    {completedGoals.length > 0 && (
-                        <div>
-                            <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
-                                Historial
-                            </h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {completedGoals.map((goal) => (
-                                    <GoalCard
-                                        key={goal.id}
-                                        goal={goal}
-                                        onOpen={() => router.push(`/life/goals/${goal.id}`)}
-                                        onDelete={(e) => {
-                                            e.stopPropagation();
-                                            setDeletingGoal(goal);
-                                        }}
-                                    />
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                </div>
+                //     {/* Metas completadas/fallidas */}
+                //     {completedGoals.length > 0 && (
+                //         <div>
+                //             <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
+                //                 Historial
+                //             </h2>
+                //             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                //                 {completedGoals.map((goal) => (
+                //                     <GoalCard
+                //                         key={goal.id}
+                //                         goal={goal}
+                //                         onOpen={() => router.push(`/life/goals/${goal.id}`)}
+                //                         onDelete={(e) => {
+                //                             e.stopPropagation();
+                //                             setDeletingGoal(goal);
+                //                         }}
+                //                     />
+                //                 ))}
+                //             </div>
+                //         </div>
+                //     )}
+                // </div>
+                <LoadingCards />
             )}
 
             {/* Modal Crear */}
