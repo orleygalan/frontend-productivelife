@@ -4,7 +4,7 @@ import { useAuthStore } from '@/store/authStore';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { Briefcase, Leaf, Star, Gift, Users, BarChart2 } from 'lucide-react';
+import { Briefcase, Leaf, Star, Gift, Users, BarChart2, CheckCheck, Clock, ClipboardList } from 'lucide-react';
 
 const features = [
   {
@@ -121,7 +121,9 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
               <div className="bg-white rounded-xl p-3 sm:p-4 border border-gray-100">
-                <p className="text-xs text-gray-400 mb-3 font-medium">📋 Por hacer</p>
+                <p className="text-xs text-gray-400 mb-3 font-medium">
+                  <ClipboardList size={13} /> Por hacer
+                </p>
                 <div className="space-y-2">
                   <div className="h-8 bg-gray-50 rounded-lg border border-gray-100 px-3 flex items-center">
                     <span className="text-xs text-gray-400">Diseñar wireframes</span>
@@ -132,7 +134,9 @@ export default function Home() {
                 </div>
               </div>
               <div className="bg-white rounded-xl p-3 sm:p-4 border border-gray-100">
-                <p className="text-xs text-gray-400 mb-3 font-medium">⏳ En progreso</p>
+                <p className="text-xs text-gray-400 mb-3 font-medium">
+                  <Clock size={13} /> En progreso
+                </p>
                 <div className="space-y-2">
                   <div className="h-8 bg-yellow-50 rounded-lg border border-yellow-100 px-3 flex items-center">
                     <span className="text-xs text-yellow-600">Desarrollar API</span>
@@ -140,7 +144,9 @@ export default function Home() {
                 </div>
               </div>
               <div className="bg-white rounded-xl p-3 sm:p-4 border border-gray-100">
-                <p className="text-xs text-gray-400 mb-3 font-medium">✅ Hecho</p>
+                <p className="text-xs text-gray-400 mb-3 font-medium">
+                  <CheckCheck size={13} /> Hecho
+                </p>
                 <div className="space-y-2">
                   <div className="h-8 bg-green-50 rounded-lg border border-green-100 px-3 flex items-center">
                     <span className="text-xs text-green-600">Setup del proyecto</span>
